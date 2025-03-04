@@ -8,7 +8,6 @@
 			* {
 				margin: 0;
 				padding: 0;
-				
 			}
 
 			html,body {
@@ -16,7 +15,11 @@
 				height: 100%;
 			}
 			body{
-				background-color:rgb(255, 239, 167);
+				/*background-color:rgb(255, 239, 167);*/
+				background-image: url("./img/astroBakcgroun.webp");
+				background-size:cover;
+				background-position:center;
+				backdrop-filter: blur(0px);
 			}
 			#contener {
 				width: 80vw;
@@ -31,17 +34,16 @@
 			#webTitle {
 				margin: 5%;
 				font-size: 3em;
-				
 			}
 
 			#myForm, #magicBowl {
 				width: 50%;
 				height: 50%;
-				margin:2%;
+				margin: 2%;
 				padding: 2%;
 				border-radius: 10px;
-				text-align:center;
-				box-sizing:border-box;
+				text-align: center;
+				box-sizing: border-box;
 				box-shadow: 2px 2px 6px 2px rgb(35, 34, 34);
 			}
 			fieldset{
@@ -133,21 +135,19 @@
 					height: 100%;
 					backface-visibility: hidden;
 			}
-
+/*
 			.front {
 					display: flex;
 					align-items: center;
 					justify-content: center;
 			}
-
+*/
 			.back {
-				display:flex;
+				/*display:flex;
 				align-items: center;
-				justify-content: center;
+				justify-content: center;*/
 				transform: rotateY(180deg);
 				position: absolute;
-				width: 100%;
-				height: 100%;
 			}
 
 			.flip .flipper {
@@ -159,13 +159,13 @@
 
 	<body class="flex_me">
 		<div id="contener" class="flex_me">
-			<h1 id="webTitle">अंक शास्त्र कैलकुलेटर – जानें अंक ज्योतिष से भविष्य </h1>
+			<h1 class="webTitle">अंक शास्त्र कैलकुलेटर </h1>
+			<h3 class="webTitle">जानें अंक ज्योतिष से भविष्य</h3>
 			<div class="flip-container" id="flipContainer">
 				<div class="flipper">
 					<!-- Form (Front Side) -->
-					<div class="front">
 
-						<form action="" method="get" id="myForm">
+						<form action="" method="get" id="myForm" class="front">
 							<fieldset class="flex_me">
 								<legend>Enter your details..</legend>
 								<label for="name">Your Name</label>
@@ -175,11 +175,8 @@
 								<input type="submit" value="submit" />
 							</fieldset>
 						</form>
-					</div>
 					<!-- Magic Bowl (Back Side) -->
-					<div class="back flex_me glassEffect" id="magicBowl">
-						<div id="magicBowl" class="glassEffect flex_me "></div>
-					</div>
+						<div id="magicBowl" class="back glassEffect flex_me "></div>
 				</div>
 			</div>
 			
@@ -196,7 +193,7 @@
 
 			myform.addEventListener("submit", (event) => {
 				 main(event);
-				 flipContainer.classList.add("flip"); // Flip Effect Add करें
+				 
 			});
 			magicGlobe.addEventListener('click', ()=>{
 				flipContainer.classList.remove("flip"); // वापस Form दिखाएँ
@@ -212,8 +209,7 @@
 				let usrDetailObj = new numerlogyCalu(name, dob);
 				usrDetailObj.printValue();
 				if (dob !== "" && name !== "") {
-					// Flip Effect Apply करें
-					myForm.classList.toggle("flip");
+					flipContainer.classList.add("flip");	// Flip Effect Apply करें
 
 					addDetailsOnMagicCircle( usrDetailObj );
 					printHoroscope(usrDetailObj);
