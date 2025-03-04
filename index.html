@@ -8,6 +8,7 @@
 			* {
 				margin: 0;
 				padding: 0;
+				
 			}
 
 			html,body {
@@ -19,7 +20,7 @@
 			}
 			#contener {
 				width: 80vw;
-				/*height: 98vh;*/
+				height: 98vh;
 				border: 2px solid red;
 				border-radius: 5px;
 				margin: auto;
@@ -27,47 +28,76 @@
 				background-color:rgba(255, 247, 214, 0.842);
 			}
 
-			h1 {
-				margin:.2em;
-				border: 2px solid red;
+			#webTitle {
+				margin: 5%;
+				font-size: 3em;
+				
 			}
 
-			form {
+			#myForm, #magicBowl {
 				width: 50%;
-				border-radius:5px;
-			}
-
-			#magicBowl {
-				width: 20em;
-				height: 20em;
-				border: 2px red solid;
-				border-radius: 50%;
-				text-align:center;
+				height: 50%;
+				margin:2%;
 				padding: 2%;
+				border-radius: 10px;
+				text-align:center;
+				box-sizing:border-box;
+				box-shadow: 2px 2px 6px 2px rgb(35, 34, 34);
 			}
-
+			fieldset{
+				border-radius: 20px;
+			}
+			label{
+				margin:2%;
+				color:rgba(59, 0, 115, 0.89);
+			}
+			input[type="text"], input[type="date"] {
+				width: 80%;
+				padding: 8px;
+				margin: 5px 0;
+				border-radius: 10px;
+				border: 1px solid #ccc;
+				box-sizing:border-box;
+				text-align:center;
+				color:rgb(255, 76, 76);
+			}
+			input[type="submit"] {
+				background-color: red;
+				color: white;
+				margin:2%;
+				padding: 10px;
+				border: none;
+				border-radius: 10px;
+				font-size: 1em;
+				cursor: pointer;
+				transition: 0.3s;
+				box-sizing:border-box;
+			}
 			#horoscope {
-				/*height: 100%;*/
-				width: 70vw;
-				border: 2px solid red;
-				border-radius: 3px;
-				margin:2em;
+				max-height: 70vh;
+				overflow:auto;
+				width: 80%;
+				border: 2px solid rgba(255, 0, 0, 0.555);
+				border-radius: 20px;
+				margin:2%;
 				padding:2%;
+				box-sizing:border-box;
 			}
 			.horoTitle {
 				font-family: "Courier New", Courier, monospace;
-				box-shadow: 2px 2px 5px 10px rgb(255, 235, 205);
-				border-radius:3px;
-				padding:1%;
 				display:inline;
 				margin:2%;
-				box-sizing:border-box;
 			}
 			.horoContent{
+				border-radius: 10px;
+				box-shadow: 2px 2px 3px 7px rgb(255, 235, 205);
+				box-sizing:border-box;
+				padding:2%;
+				margin:2%;
+			}
+			.horoPeragraph{
 				text-align:justify;
 				padding:2%;
-				border-radius: 10px;
-				box-shadow: 2px 2px 5px 10px rgb(255, 235, 205);
 			}
 			.flex_me {
 				display: flex;
@@ -75,35 +105,102 @@
 				justify-content: center;
 				align-items: center;
 			}
+			.glassEffect{
+				background-color:rgba(255, 255, 255, 0.209);
+				backdrop-filter:blur(5px);
+				border-top: 1px solid rgba(255, 255, 255, 0.4);
+				border-left: 1px solid rgba(255, 255, 255, 0.3);
+			}
+			/* 3d flip effect */
+			.flip-container {
+				position: relative;
+				width: 50%;
+				height: 50%;
+				perspective: 1000px; /* 3D Effect */
+			}
+
+			.flipper {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					transition: transform 1s;
+					transform-style: preserve-3d;
+			}
+
+			.front, .back {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					backface-visibility: hidden;
+			}
+
+			.front {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+			}
+
+			.back {
+				display:flex;
+				align-items: center;
+				justify-content: center;
+				transform: rotateY(180deg);
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+
+			.flip .flipper {
+					transform: rotateY(180deg);
+			}
+
 		</style>
 	</head>
 
 	<body class="flex_me">
 		<div id="contener" class="flex_me">
-			<h1>Numerology</h1>
-			<div id="magicBowl"></div>
-			<form action="" method="get" id="myForm">
-				<fieldset class="flex_me">
-					<legend>Enter your details..</legend>
-					<label for="name">Your Name</label>
-					<input type="text" name="name" /><br />
-					<label for="dob">Date of Birth</label>
-					<input type="date" name="dob" /><br />
-					<input type="submit" value="submit" />
-				</fieldset>
-			</form>
-			<h3>Your Horoscope</h3>
-			<div id="horoscope"></div>
+			<h1 id="webTitle">अंक शास्त्र कैलकुलेटर – जानें अंक ज्योतिष से भविष्य </h1>
+			<div class="flip-container" id="flipContainer">
+				<div class="flipper">
+					<!-- Form (Front Side) -->
+					<div class="front">
+
+						<form action="" method="get" id="myForm">
+							<fieldset class="flex_me">
+								<legend>Enter your details..</legend>
+								<label for="name">Your Name</label>
+								<input type="text" name="name" /><br />
+								<label for="dob">Date of Birth</label>
+								<input type="date" name="dob" /><br />
+								<input type="submit" value="submit" />
+							</fieldset>
+						</form>
+					</div>
+					<!-- Magic Bowl (Back Side) -->
+					<div class="back flex_me glassEffect" id="magicBowl">
+						<div id="magicBowl" class="glassEffect flex_me "></div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="horoscope" class="glassEffect"></div>
 		</div>
 
 		<script src="./horoscope.js"></script>
 		<script>
 			const myform = document.getElementById("myForm");
-			myform.addEventListener("submit", (event) => {
-				main(event);
-			});
 			const HoroscopePlace = document.getElementById("horoscope");
+			const magicGlobe= document.getElementById( "magicBowl" );
+			
+			const flipContainer = document.getElementById("flipContainer");
 
+			myform.addEventListener("submit", (event) => {
+				 main(event);
+				 flipContainer.classList.add("flip"); // Flip Effect Add करें
+			});
+			magicGlobe.addEventListener('click', ()=>{
+				flipContainer.classList.remove("flip"); // वापस Form दिखाएँ
+			});
 			function main(event) {
 				event.preventDefault();
 				const formData = new FormData(event.target);
@@ -111,17 +208,22 @@
 				let dob = formData.get("dob");
 				//console.log(`${name}, ${dob}`);
 
+				
 				let usrDetailObj = new numerlogyCalu(name, dob);
 				usrDetailObj.printValue();
 				if (dob !== "" && name !== "") {
+					// Flip Effect Apply करें
+					myForm.classList.toggle("flip");
+
 					addDetailsOnMagicCircle( usrDetailObj );
 					printHoroscope(usrDetailObj);
 				}else{
+					magicGlobe.innerHTML="";
 					HoroscopePlace.innerText="";
 				}
 			}
 
-			const magicGlobe= document.getElementById( "magicBowl" );
+			
 			function addDetailsOnMagicCircle( usrDetailObj ){
 				/*
 				Name : user name
@@ -129,8 +231,8 @@
 				नामांक : 0
 				मूलांक : 0
 				भाग्यांक : 0
-
 				*/
+				magicGlobe.innerHTML="";
 				const peragraph = document.createElement("p");
 				peragraph.innerText = `नाम :${usrDetailObj.name}\n जन्म तिथि: ${ usrDetailObj.date}\n नामांक : ${usrDetailObj.mulyankByName}\n मूलांक : ${usrDetailObj.bhagyank}\n भाग्यांक : ${usrDetailObj.mulyank}`;
 				magicGlobe.appendChild(peragraph);
@@ -138,13 +240,13 @@
 			}
 			function createHoroscopeElement( title, text ) {
 				const wapper = document.createElement("div");
-
+				wapper.classList.add("horoContent");
 				const hadding = document.createElement("h3");
 				hadding.classList.add("horoTitle");
 				hadding.innerText = title;
 
-				const div = document.createElement("div");
-				div.classList.add("horoContent");
+				const div = document.createElement("p");
+				div.classList.add("horoPeragraph");
 				div.appendChild(hadding);
 				div.innerText = text;
 
@@ -154,6 +256,9 @@
 			}
 			function printHoroscope( usrDetailObj ) {
 				const df = document.createDocumentFragment();
+				const horoTitle=document.createElement("h3");
+				horoTitle.innerText = "आपका अंकज्योतिष रिपोर्ट";
+				df.appendChild(horoTitle);
 				df.appendChild(
 					createHoroscopeElement("नामांक ", namankData[usrDetailObj.mulyankByName])
 				);
@@ -172,6 +277,11 @@
 					this.year = dateStr.slice(0, 4);
 					this.month = dateStr.slice(5, 7);
 					this.day = dateStr.slice(8, 10);
+					this.monthInWord=this.#monthInWord(this.month);
+				}
+				#monthInWord(month){
+					const monthNames = { 1: "जनवरी", 2: "फरवरी", 3: "मार्च", 4: "अप्रैल", 5: "मई", 6: "जून", 7: "जुलाई", 8: "अगस्त", 9: "सितंबर", 10: "अक्टूबर", 11: "नवंबर", 12: "दिसंबर"};
+					return monthNames[parseInt(month)];
 				}
 			}
 
@@ -186,7 +296,7 @@
 					this.mulyank = this.#calc_Mulyank(date);
 				}
 				#date(date){
-					return `${date.day}:${date.month}:${date.year}`;
+					return `${date.day}:${date.monthInWord}:${date.year}`;
 				}
 				#calc_Name(name) {
 					let namNumVal = [];
