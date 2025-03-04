@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Numerlogy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      #contener {
+        width: 80vw;
+        min-height: 100vh;
+        border: 2px solid red;
+        border-radius: 5px;
+        margin: auto 0;
+      }
+
+      h1 {
+        border: 2px solid red;
+      }
+
+      form {
+        width: 50%;
+      }
+
+      #magicBowl {
+        width: 200px;
+        height: 200px;
+        border: 2px red solid;
+        border-radius: 50%;
+      }
+
+      #horoscope {
+        height: 100%;
+        width: 70vw;
+        border: 2px solid red;
+        border-radius: 3px;
+      }
+      .horoTitle{
+        font-family:'Courier New', Courier, monospace;
+      }
+
+      .flex_me {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body class="flex_me">
+    <div id="contener" class="flex_me">
+      <h1>Numerology</h1>
+      <div id="magicBowl"></div>
+      <form action="" method="get" id="myForm">
+        <fieldset class="flex_me">
+          <legend>Enter your details..</legend>
+          <label for="name">Your Name</label>
+          <input type="text" name="name" /><br />
+          <label for="dob">Date of Birth</label>
+          <input type="date" name="dob" />
+          <br />
+          <input type="submit" value="submit" />
+        </fieldset>
+      </form>
+      <h3>Your Horoscope</h3>
+      <div id="horoscope"></div>
+    </div>
+
+    <script src="./horoscope.js"></script>
+    <script>
+      const myform = document.getElementById("myForm");
+      myform.addEventListener("submit", (event) => {
+        main(event);
+      });
+
+      function main(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        let name = formData.get("name").toLowerCase();
+        let dob = formData.get("dob");
+        //console.log(`${name}, ${dob}`);
+
+        let mo = new numerlogyCalu(name, dob);
+        mo.printValue();
+        if (dob!=='' && name!=='') {
+          printHoroscope(mo);
+        }
+      }
+
+      const HoroscopePlace = document.getElementById("horoscope");
+
+      
+      function createHoroscopeElement(title, text){
+        const wapper=document.createElement('div');
+        
+        const hadding=document.createElement('h3');
+        hadding.classList.add("horoTitle");
+        hadding.innerText=title;
+
+        const div=document.createElement('div');
+        div.innerText = text;
+        wapper.appendChild(hadding);
+        wapper.appendChild(div);
+        return wapper;
+      }
+      function printHoroscope(mo){
+        const df=document.createDocumentFragment();
+        df.appendChild(createHoroscopeElement("नामांक ", namankData[mo.mulyankByName]));
+        df.appendChild(createHoroscopeElement("मूलांक", MulyankData[mo.mulyank]));
+        df.appendChild(createHoroscopeElement("भाग्यांक ", BhagyankData[mo.bhagyank]));
+        HoroscopePlace.innerHTML = '';
+        HoroscopePlace.appendChild(df);
+      }
+
+      class myDate {
+        constructor(dateStr) {
+          this.year = dateStr.slice(0, 4);
+          this.month = dateStr.slice(5, 7);
+          this.day = dateStr.slice(8, 10);
+        }
+      }
+
+      class numerlogyCalu {
+        constructor(name, dob) {
+          this.name = name;
+          let date = new myDate(dob);
+
+          this.mulyankByName = this.#calc_Name(name);
+          this.bhagyank = this.#calc_Bhayank(date);
+          this.mulyank = this.#calc_Mulyank(date);
+        }
+        #calc_Name(name) {
+          let namNumVal = [];
+          let SumNamVal = 0;
+
+          for (let i = 0; i < name.length; i++) {
+            namNumVal.push(name.charCodeAt(i) - 96);
+            SumNamVal += namNumVal[namNumVal.length - 1];
+          }
+
+          this.nameArre = namNumVal;
+          return this.#reduce2one(SumNamVal);
+        }
+        #calc_Mulyank(date) {
+          let dateArre = [];
+
+          [date.day, date.month, date.year].forEach((value) => {
+            for (let i = 0; i < value.length; i++) {
+              dateArre.push(parseInt(value[i]));
+            }
+          });
+
+          this.dateArre = dateArre;
+          return this.#reduce2one(dateArre.reduce((sum, num) => sum + num, 0));
+        }
+        #calc_Bhayank(date) {
+          return this.#reduce2one(parseInt(date.day));
+        }
+        #reduce2one(num) {
+          if (num > 9) {
+            let sum = 0;
+            while (num != 0) {
+              sum += num % 10;
+              num = parseInt(num / 10);
+            }
+            return this.#reduce2one(sum);
+          }
+          return num;
+        }
+        printValue() {
+          console.log(`name [${this.nameArre}] num=${this.mulyankByName}`);
+          console.log(
+            `dob=[${this.dateArre.slice(0, 2)}] bhagyank=${this.bhagyank}`
+          );
+          console.log(`dob=[${this.dateArre}] mulyank =${this.mulyank}`);
+        }
+      }
+    </script>
+  </body>
+</html>
