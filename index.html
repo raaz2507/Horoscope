@@ -10,28 +10,31 @@
 				padding: 0;
 			}
 
-			html,
-			body {
+			html,body {
 				width: 100%;
 				height: 100%;
 			}
-
+			body{
+				background-color:rgb(255, 239, 167);
+			}
 			#contener {
 				width: 80vw;
-				height: 98vh;
+				/*height: 98vh;*/
 				border: 2px solid red;
 				border-radius: 5px;
 				margin: auto;
-        box-sizing: border-box;
+				box-sizing: border-box;
+				background-color:rgba(255, 247, 214, 0.842);
 			}
 
 			h1 {
-        margin:.2em;
+				margin:.2em;
 				border: 2px solid red;
 			}
 
 			form {
 				width: 50%;
+				border-radius:5px;
 			}
 
 			#magicBowl {
@@ -39,21 +42,33 @@
 				height: 20em;
 				border: 2px red solid;
 				border-radius: 50%;
+				text-align:center;
+				padding: 2%;
 			}
 
 			#horoscope {
-				height: 100%;
+				/*height: 100%;*/
 				width: 70vw;
 				border: 2px solid red;
 				border-radius: 3px;
-        margin:2em;
+				margin:2em;
+				padding:2%;
 			}
 			.horoTitle {
 				font-family: "Courier New", Courier, monospace;
+				box-shadow: 2px 2px 5px 10px rgb(255, 235, 205);
+				border-radius:3px;
+				padding:1%;
+				display:inline;
+				margin:2%;
+				box-sizing:border-box;
 			}
-      .horoContent{
-        text-align:justify;
-      }
+			.horoContent{
+				text-align:justify;
+				padding:2%;
+				border-radius: 10px;
+				box-shadow: 2px 2px 5px 10px rgb(255, 235, 205);
+			}
 			.flex_me {
 				display: flex;
 				flex-direction: column;
@@ -87,7 +102,7 @@
 			myform.addEventListener("submit", (event) => {
 				main(event);
 			});
-      const HoroscopePlace = document.getElementById("horoscope");
+			const HoroscopePlace = document.getElementById("horoscope");
 
 			function main(event) {
 				event.preventDefault();
@@ -96,17 +111,32 @@
 				let dob = formData.get("dob");
 				//console.log(`${name}, ${dob}`);
 
-				let mo = new numerlogyCalu(name, dob);
-				mo.printValue();
+				let usrDetailObj = new numerlogyCalu(name, dob);
+				usrDetailObj.printValue();
 				if (dob !== "" && name !== "") {
-					printHoroscope(mo);
+					addDetailsOnMagicCircle( usrDetailObj );
+					printHoroscope(usrDetailObj);
 				}else{
-          HoroscopePlace.innerText="";
-        }
-      }
+					HoroscopePlace.innerText="";
+				}
+			}
 
-			
-			function createHoroscopeElement(title, text) {
+			const magicGlobe= document.getElementById( "magicBowl" );
+			function addDetailsOnMagicCircle( usrDetailObj ){
+				/*
+				Name : user name
+				DOB: 23.mon.0000
+				नामांक : 0
+				मूलांक : 0
+				भाग्यांक : 0
+
+				*/
+				const peragraph = document.createElement("p");
+				peragraph.innerText = `नाम :${usrDetailObj.name}\n जन्म तिथि: ${ usrDetailObj.date}\n नामांक : ${usrDetailObj.mulyankByName}\n मूलांक : ${usrDetailObj.bhagyank}\n भाग्यांक : ${usrDetailObj.mulyank}`;
+				magicGlobe.appendChild(peragraph);
+
+			}
+			function createHoroscopeElement( title, text ) {
 				const wapper = document.createElement("div");
 
 				const hadding = document.createElement("h3");
@@ -114,21 +144,24 @@
 				hadding.innerText = title;
 
 				const div = document.createElement("div");
+				div.classList.add("horoContent");
+				div.appendChild(hadding);
 				div.innerText = text;
+
 				wapper.appendChild(hadding);
 				wapper.appendChild(div);
 				return wapper;
 			}
-			function printHoroscope(mo) {
+			function printHoroscope( usrDetailObj ) {
 				const df = document.createDocumentFragment();
 				df.appendChild(
-					createHoroscopeElement("नामांक ", namankData[mo.mulyankByName])
+					createHoroscopeElement("नामांक ", namankData[usrDetailObj.mulyankByName])
 				);
 				df.appendChild(
-					createHoroscopeElement("मूलांक", MulyankData[mo.mulyank])
+					createHoroscopeElement("मूलांक", MulyankData[usrDetailObj.mulyank])
 				);
 				df.appendChild(
-					createHoroscopeElement("भाग्यांक ", BhagyankData[mo.bhagyank])
+					createHoroscopeElement("भाग्यांक ", BhagyankData[usrDetailObj.bhagyank])
 				);
 				HoroscopePlace.innerHTML = "";
 				HoroscopePlace.appendChild(df);
@@ -146,10 +179,14 @@
 				constructor(name, dob) {
 					this.name = name;
 					let date = new myDate(dob);
+					this.date= this.#date(date);
 
 					this.mulyankByName = this.#calc_Name(name);
 					this.bhagyank = this.#calc_Bhayank(date);
 					this.mulyank = this.#calc_Mulyank(date);
+				}
+				#date(date){
+					return `${date.day}:${date.month}:${date.year}`;
 				}
 				#calc_Name(name) {
 					let namNumVal = [];
