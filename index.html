@@ -1,147 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Numerlogy</title>
 		<link rel="stylesheet" href="style.css"></link>
 		
-		<style>
-			
-			#contener {
-				width: 95vw;
-				height: 95vh;
-				box-shadow: 2px 2px 6px 2px rgb(255, 183, 0);
-				border-radius: 5px;
-				margin: auto;
-				box-sizing: border-box;
-				background-color:rgba(255, 247, 214, 0.842);
-			}
+<style>
+:root{
+	--color1: rgb(235, 83, 83);
+	--color2: rgba(255, 247, 214, 0.842);
+	--color3: rgb(255, 183, 0);
+	--color4: rgb(255, 199, 95);
+	--font-family: arial;
+	--font-size: 18px;
+	--background-img: url("./img/astroBakcgroun.webp");
+	/* size in px */
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 
-			#webTitle {
-				margin: 5%;
-				font-size: 3em;
-			}
+html,body {
+	width: 100%;
+	height: 100%;
+}
+.flex_me{
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items:center;
+}
+body{
+	/*background-color:rgb(255, 239, 167);*/
+	background-image: var(--background-img);
+	background-size:cover;
+	background-position:center;
+	backdrop-filter: blur(0px);
+	background-repeat:no-repeat;
+}
+#contener{
+	width:98vw;
+	height: 98vh;
+	margin:1% auto;
+	border: 2px solid red;
+	border-radius: 20px;
+	box-shadow: 2px 2px 6px 2px var(--color3);
+	background: var(--color2);
+	/*align-content:space-between;*/
+}
+.webTitle{
+	flex-basis:10%;
+}
+form{
+	flex-basis: 10%;
+	width: 50vw;
+}
+form fieldset{
+	background: var(--color4);
+	border-radius: 10px;
+	padding:5%;
+	margin:2%;
+}
 
-			#myForm, #magicBowl {
-				width: 50%;
-				height: 50%;
-				margin: 2%;
-				padding: 2%;
-				border-radius: 10px;
-				text-align: center;
-				box-sizing: border-box;
-				box-shadow: 2px 2px 6px 2px rgb(35, 34, 34);
-			}
-			fieldset{
-				border-radius: 20px;
-			}
-			label{
-				margin:2%;
-				color:rgba(59, 0, 115, 0.89);
-			}
-			input[type="text"], input[type="date"] {
-				width: 80%;
-				padding: 8px;
-				margin: 5px 0;
-				border-radius: 10px;
-				border: 1px solid rgb(204, 204, 204);
-				box-sizing:border-box;
-				text-align:center;
-				color:rgb(255, 76, 76);
-			}
-			input[type="submit"] {
-				background-color: red;
-				color: white;
-				margin:2%;
-				padding: 10px;
-				border: none;
-				border-radius: 10px;
-				font-size: 1em;
-				cursor: pointer;
-				transition: 0.3s;
-				box-sizing:border-box;
-			}
-			#horoscope {
-				overflow: auto;
-				width: 90%;
-				border: 2px solid rgba(255, 0, 0, 0.555);
-				border-radius: 20px;
-				margin: 2%;
-				padding: 2%;
-				box-sizing: border-box;
-			}
-			.horoTitle {
-				font-family: "Courier New", Courier, monospace;
-				display: inline;
-				margin: 2%;
-			}
-			.horoContent{
-				border-radius: 10px;
-				box-shadow: 2px 2px 3px 7px rgb(255, 235, 205);
-				box-sizing:border-box;
-				padding:2%;
-				margin:2%;
-			}
-			.horoPeragraph{
-				text-align:justify;
-				padding:2%;
-			}
-			.flex_me {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-			}
-			.glassEffect{
-				background-color:rgba(255, 255, 255, 0.209);
-				backdrop-filter:blur(5px);
-				border-top: 1px solid rgba(255, 255, 255, 0.4);
-				border-left: 1px solid rgba(255, 255, 255, 0.3);
-			}
-			/* 3d flip effect */
-			.flip-container {
-				position: relative;
-				width: 50%;
-				height: 50%;
-				perspective: 1000px; /* 3D Effect */
-			}
+/* grid setup-start */
+form fieldset{
+	display:Grid;
+	grid-template-columns: auto auto 10%;
+	grid-template-rows: repeat(2,auto);
+	grid-template-areas: "nameLable nameInput submitBtn"
+											 "dobLable dobInput submitBtn";
+}
 
-			.flipper {
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					transition: transform 1s;
-					transform-style: preserve-3d;
-			}
+/* grid setup-end */
 
-			.front, .back {
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					backface-visibility: hidden;
-			}
-/*
-			.front {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-			}
-*/
-			.back {
-				/*display:flex;
-				align-items: center;
-				justify-content: center;*/
-				transform: rotateY(180deg);
-				position: absolute;
-			}
-
-			.flip .flipper {
-					transform: rotateY(180deg);
-			}
-
-		</style>
-	</head>
+form label{
+	font-size:large;
+}
+form input[type="text"], input[type="date"] {
+	color: var(--color1);
+	text-align: center;
+	font-size:larger;
+	padding:2%;
+	margin:2%;
+	border-radius:10px;
+	/*width:50%;*/
+	transition-property: transform;
+	transition-duration:1s;
+}
+form input[type="text"], input[type="date"]:hover{
+	transform: scale(1.05)
+}
+form input[type="submit"]{
+	color: var(--color1);
+	font-size:16px;
+	background-color: var(--color2);
+	padding:3%;
+	margin:3%;
+	border-radius: 15px;
+	box-shadow: auto ;
+	transition-property: background-color, box-shadow, transform;
+	transition-duration: 1s;
+	
+}
+form input[type="submit"]:hover{
+	background: rgba(0, 0, 0, 0.37);
+	box-shadow: 4px 4px 6px 4px rgb(255, 255, 255);
+	transform: scale(1.05);
+}
+#DetailsDisplay{
+	border: 2px solid red;
+	padding:2%;
+	border-radius: 10px;
+}
+#DetailsDisplay{
+	display: grid;
+	grid-template-columns:repeat(5, 1fr);
+	grid-template-rows:repeat(2, 1fr);
+	grid-template-areas: "nameTitle nameValue namankTitle mulyanTitle bhagyankTitle"
+											 "dobTitle dobValue namankValue mulyankValue bhagyankValue";
+	gap: 2px;
+}
+.detailsDisTitle{
+	background-color:rgba(252, 69, 37, 0.678);
+}
+#nameValue{
+	background-color: greenyellow;
+}
+#dobValue{
+	background-color:blueviolet;
+}
+#namankValue{
+	background-color:blue;
+}
+#mulyankValue{
+	background-color:rgb(235, 83, 83);
+}
+#bhagyankValue{
+	background-color: brown;
+}
+.disValues, .detailsDisTitle{
+	padding: 2%;
+	text-align:center;
+	color:white;
+	font-size: 1.03em;
+}
+#horoscope{
+	flex-basis:70%;
+	width:95%;
+	height:70%;
+	padding: 2%;
+	margin:2%;
+	border-radius: 10px;
+	overflow:auto;
+}
+.horoContent{
+	width:98%;
+	margin:1%;
+	padding:1%;
+	box-shadow: 2px 2px 6px 3px var(--color2);
+	border-radius: 10px;
+}
+.glassEffect{
+	background-color:rgba(250, 235, 215, 0.127);
+	backdrop-filter: blur(10px);
+	border-top: 1px solid rgba(255, 255, 255, 0.4);
+	border-left: 1px solid rgba(255, 255, 255, 0.4);
+}
+</style>
+</head>
 
 	<body class="flex_me">
 		<div id="contener" class="flex_me">
@@ -151,18 +180,27 @@
 				<div class="flipper">
 					<!-- Form (Front Side) -->
 
-						<form action="" method="get" id="myForm" class="front">
-							<fieldset class="flex_me">
+						<form id="myForm" >
+							<fieldset >
 								<legend>Enter your details..</legend>
-								<label for="name">Your Name</label>
-								<input type="text" name="name" /><br />
-								<label for="dob">Date of Birth</label>
-								<input type="date" name="dob" /><br />
-								<input type="submit" value="submit" />
+								
+									<label for="name" style="grid-area:nameLable;">Your Name</label>
+									<input type="text" name="name" placeholder="Enter your Name" style="grid-area: nameInput;"/><br />
+								
+									<label for="dob" id="dobLable" style="grid-area: dobLable;">Date of Birth</label>
+									<input type="date" name="dob" style="grid-area: dobInput;"/><br />
+								
+								<input type="submit" value="Submit" style="grid-area: submitBtn;"/>
 							</fieldset>
 						</form>
 					<!-- Magic Bowl (Back Side) -->
-						<div id="magicBowl" class="back glassEffect flex_me "></div>
+						<div id="DetailsDisplay" class="glassEffect">
+							<p class="detailsDisTitle" style="grid-area:nameTitle">नाम :</p>			 <span id="nameValue" style="grid-area:nameValue;" class="disValues">naam</span>
+							<p class="detailsDisTitle" style="grid-area:dobTitle;">जन्म तिथि:</p>		 <span id="dobValue" style="grid-area:dobValue;" class="disValues">date</span>
+							<p class="detailsDisTitle" style="grid-area:namankTitle;">नामांक :</p>	 <span id="namankValue" style="grid-area:namankValue;" class="disValues">0</span>
+							<p class="detailsDisTitle" style="grid-area:mulyanTitle;">मूलांक :</p>	 <span id="mulyankValue" style="grid-area:mulyankValue;" class="disValues">0</span>
+							<p class="detailsDisTitle" style="grid-area:bhagyankTitle;">भाग्यांक :</p><span id="bhagyankValue" style="grid-area:bhagyankValue;" class="disValues">0</span>
+						</div>
 				</div>
 			</div>
 			
@@ -173,13 +211,13 @@
 <script>
 	const myform = document.getElementById("myForm");
 	const HoroscopePlace = document.getElementById("horoscope");
-	const magicGlobe= document.getElementById( "magicBowl" );
+	const DetailsDisplay= document.getElementById( "DetailsDisplay" );
 	
 	const flipContainer = document.getElementById("flipContainer");
 
 	myform.addEventListener("submit", (event) => {	main(event); });
 
-	magicGlobe.addEventListener('click', ()=>{
+	DetailsDisplay.addEventListener('click', ()=>{
 		flipContainer.classList.remove("flip"); // वापस Form दिखाएँ
 	});
 
@@ -198,24 +236,24 @@
 			addDetailsOnMagicCircle( usrDetailObj );
 			printHoroscope(usrDetailObj);
 		}else{
-			magicGlobe.innerHTML="";
+			DetailsDisplay.innerHTML="";
 			HoroscopePlace.innerText="";
 		}
 	}
 
-	
+	const nameValue=document.getElementById("nameValue");
+	const dobValue= document.getElementById("dobValue");
+	const namankValue = document.getElementById("namankValue");
+	const mulyankValue = document.getElementById("mulyankValue");
+	const bhagyankValue= document.getElementById("bhagyankValue");
 	function addDetailsOnMagicCircle( usrDetailObj ){
-		/*
-		Name : user name
-		DOB: 23.mon.0000
-		नामांक : 0
-		मूलांक : 0
-		भाग्यांक : 0
-		*/
-		magicGlobe.innerHTML="";
-		const peragraph = document.createElement("p");
-		peragraph.innerText = `नाम :${usrDetailObj.name}\n जन्म तिथि: ${ usrDetailObj.date}\n नामांक : ${usrDetailObj.mulyankByName}\n मूलांक : ${usrDetailObj.bhagyank}\n भाग्यांक : ${usrDetailObj.mulyank}`;
-		magicGlobe.appendChild(peragraph);
+		nameValue.innerText= usrDetailObj.name;
+		dobValue.innerText= usrDetailObj.date;
+		namankValue.innerText =usrDetailObj.mulyankByName;
+		mulyankValue.innerText=usrDetailObj.mulyank;
+		bhagyankValue.innerText=usrDetailObj.bhagyank;
+		//peragraph.innerText = `नाम :${usrDetailObj.name}\n जन्म तिथि: ${ usrDetailObj.date}\n नामांक : ${usrDetailObj.mulyankByName}\n मूलांक : ${usrDetailObj.bhagyank}\n भाग्यांक : ${usrDetailObj.mulyank}`;
+		//DetailsDisplay.appendChild(peragraph);
 
 	}
 	function createHoroscopeElement( title, text ) {
