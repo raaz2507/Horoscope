@@ -255,19 +255,26 @@ form input[type="submit"]:hover{
 	const myform = document.getElementById("myForm");
 	const HoroscopePlace = document.getElementById("horoscope");
 	const DetailsDisplay= document.getElementById( "DetailsDisplay" );
-	HoroscopePlace.style.display='none';
+	
+	function horoScopePlaceHide(){
+		HoroscopePlace.style.display='none';
+	}
+	horoScopePlaceHide();
+	function horsoScopePlaceShow(){
+		HoroscopePlace.style.display='block';
+	}
 	
 
 	myform.addEventListener("submit", (event) => {	main(event); });
 
 	DetailsDisplay.addEventListener('click', ()=>{
 		flipCard();
-		HoroscopePlace.style.display='none';
+		horoScopePlaceHide();
 	});
-	
-	const flipContainer = document.getElementById("flipContainer");
+
+	const card = document.querySelector(".card");
 	function flipCard(){
-		flipContainer.style.transform='rotateX(180deg)'; // वापस Form दिखाएँ
+		card.style.transform='rotateX(180deg)'; // वापस Form दिखाएँ
 	}
 	function main(event) {
 		event.preventDefault();
@@ -283,7 +290,7 @@ form input[type="submit"]:hover{
 
 			addDetailsOnMagicCircle( usrDetailObj );
 			printHoroscope(usrDetailObj);
-			HoroscopePlace.style.display='block';
+			horsoScopePlaceShow();
 		}else{
 			DetailsDisplayReset();
 			HoroscopePlace.innerText="";
