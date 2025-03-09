@@ -15,6 +15,8 @@
 	--font-family: arial;
 	--font-size: 18px;
 	--background-img: url("./img/astroBakcgroun.webp");
+	--widthSize: 98vw;
+	--heightSize: 98vh;
 	/* size in px */
 }
 * {
@@ -24,13 +26,13 @@
 }
 
 html,body {
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 }
-.flex_me{
+.flexMe{
 	display:flex;
 	flex-direction:column;
-	justify-content: center;
+	justify-content:space-between;
 	align-items:center;
 }
 body{
@@ -38,24 +40,39 @@ body{
 	background-image: var(--background-img);
 	background-size:cover;
 	background-position:center;
-	backdrop-filter: blur(0px);
-	background-repeat:no-repeat;
+	/*backdrop-filter: blur(1px);*/
+	background-repeat:repeat-y;
 }
-#contener{
-	width:98vw;
-	height: 98vh;
+header{
+	background-color: var(--color3);
+	width: var(--widthSize);
+	margin:2px;
+	padding:1%;
+	border-radius: 10px;
+	color:var(--color2);
+}
+nav{
+	background-color:var(--color3);
+	width:var(--widthSize);
+	border-radius: 10px;
+}
+nav ul{
+	/*display:flex;*/
+	flex-direction:column;
+}
+nav li{
+	list-style:none;
+}
+#container{
+	width:var(--widthSize);
+	height: var(--heightSize);
 	margin:1% auto;
+	padding:1%;
 	border: 2px solid red;
 	border-radius: 20px;
 	box-shadow: 2px 2px 6px 2px var(--color3);
 	background: var(--color2);
 	/*align-content:space-between;*/
-}
-.webTitle{
-	/*flex-basis:10%;*/
-}
-form{
-	/*flex-basis: 10%;*/
 }
 
 form fieldset{
@@ -68,16 +85,18 @@ form fieldset{
 /* grid setup-start */
 form fieldset{
 	display:Grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: auto auto 5% auto;
 	grid-template-rows: repeat(2,auto);
-	grid-template-areas: "nameLable nameInput submitBtn"
-											 "dobLable dobInput submitBtn";
+	grid-template-areas: "nameLable nameInput . submitBtn"
+											 "dobLable dobInput . submitBtn";
 }
 
 /* grid setup-end */
 
 form label{
 	font-size:large;
+	margin:2%;
+	color: var(--color1);
 }
 form input[type="text"], input[type="date"] {
 	color: var(--color1);
@@ -95,10 +114,10 @@ form input[type="text"]:hover, input[type="date"]:hover{
 }
 form input[type="submit"]{
 	color: var(--color1);
-	font-size:16px;
+	font-size:1.3em;
 	background-color: var(--color2);
-	padding:3%;
-	margin:3%;
+	padding:1%;
+	margin:2%;
 	border-radius: 15px;
 	/*box-shadow: auto ;*/
 	transition-property: background-color, box-shadow, transform;
@@ -118,8 +137,8 @@ form input[type="submit"]:hover{
 }
 #DetailsDisplay{
 	display: grid;
-	grid-template-columns:repeat(5, 1fr);
-	grid-template-rows:repeat(2, 1fr);
+	grid-template-columns:repeat(5, auto);
+	grid-template-rows:repeat(2, auto);
 	grid-template-areas: "nameTitle nameValue namankTitle mulyanTitle bhagyankTitle"
 											 "dobTitle dobValue namankValue mulyankValue bhagyankValue";
 	gap: 2px;
@@ -148,7 +167,8 @@ form input[type="submit"]:hover{
 	color:white;
 	font-size: x-large;
 	display:inline-block;
-	transition-duration: .5s;
+	transition-duration: .2s;
+	transition-timing-function: ease-in-out;
 	display:flex;
 	align-items:center;
 	justify-content: center;
@@ -172,8 +192,20 @@ form input[type="submit"]:hover{
 	box-shadow: 2px 2px 6px 3px var(--color2);
 	border-radius: 10px;
 }
+footer{
+	width: var(--widthSize);
+	height: 10vh;
+	padding:1%;
+	margin:2%;
+	margin-bottom:1em;
+	justify-content: center !important;
+	/*text-align:center;*/
+	color: var(--color1);
+	border: 2px solid var(--color1);
+	border-radius: 15px;
+}
 .glassEffect{
-	/*background-color:rgba(250, 235, 215, 0.127);*/
+	background-color:rgba(250, 235, 215, 0.127);
 	backdrop-filter: blur(10px);
 	border-top: 1px solid rgba(255, 255, 255, 0.4);
 	border-left: 1px solid rgba(255, 255, 255, 0.4);
@@ -183,28 +215,25 @@ form input[type="submit"]:hover{
 .flipContainer{
 	width:70vw;
 	height:20vh;
-	position: relative;
-	perspective: 1000px;
-	
+	/*position: relative;*/
+	perspective: 30em;
 }
 
-.card{
-	width:100%;
-	height:100%;
+.flipCard{
+	width:90%;
+	height: 90%;
 	position : relative;
 	transform-style:preserve-3d;
-	transition-property: transform;
-	transition-duration: 1s;
-	transition-timing-function: ease-in-out;
+	/*transition-property: transform;*/
+	transition-duration: .5s;
+	/*transition-timing-function: ease-in-out;*/
 }
-/*.flipContainer:hover .card{ transform: rotateX(180deg);}*/
+
 .front, .back{
 	width:100%;
 	height:100%;
 	position: absolute;
 	backface-visibility: hidden;
-}
-.front{ 
 
 }
 .back{
@@ -215,25 +244,35 @@ form input[type="submit"]:hover{
 </style>
 </head>
 
-	<body class="flex_me">
-		<div id="contener" class="flex_me">
+	<body class="flexMe">
+		<header class="glassEffect">
 			<h1 class="webTitle">अंक शास्त्र कैलकुलेटर </h1>
 			<h3 class="webTitle">जानें अंक ज्योतिष से भविष्य</h3>
+		</header>
+		<nav class="glassEffect">
+			<ul class="flexMe">
+				<li><a href="">about numverlogy</a></li>
+				<li><a href="">numerloby calculater</a></li>
+				<li><a href="">about me</a></li>
+			</ul>
+		</nav>
+		<div id="container" class="flexMe">
+			
 			<div class="flipContainer">
-				<div class="card">
+				<div class="flipCard">
 					<div class="front">
 						<form id="myForm" >
 							<fieldset >
 								<legend>Enter your details..</legend>
-								
+						
 								<label for="name" style="grid-area:nameLable;">Your Name</label>
 								<input type="text" name="name" placeholder="Enter your Name" style="grid-area: nameInput;"/>
-							
+						
 								<label for="dob" id="dobLable" style="grid-area: dobLable;">Date of Birth</label>
 								<input type="date" name="dob" style="grid-area: dobInput;"/>
-								
+						
 								<input type="submit" value="Submit" style="grid-area: submitBtn;"/>
-							</fieldset>
+						</fieldset>
 						</form>
 					</div>
 					<!-- Magic Bowl (Back Side) -->
@@ -249,7 +288,7 @@ form input[type="submit"]:hover{
 			
 			<div id="horoscope" class="glassEffect"></div>
 		</div>
-
+		<footer class="glassEffect flexMe">Site Desine By Raj</footer>
 <script src="./horoscope.js"></script>
 <script>
 	const myform = document.getElementById("myForm");
@@ -269,12 +308,14 @@ form input[type="submit"]:hover{
 
 	DetailsDisplay.addEventListener('click', ()=>{
 		flipCard();
-		horoScopePlaceHide();
+		horsoScopePlaceShow();
 	});
 
-	const card = document.querySelector(".card");
+	const flip_Card = document.querySelector(".flipCard");
+	const front =document.querySelector(".front");
 	function flipCard(){
-		card.style.transform='rotateX(180deg)'; // वापस Form दिखाएँ
+		flip_Card.style.transform='rotateX(180deg)'; // वापस Form दिखाएँ
+		front.style.display='none';
 	}
 	function main(event) {
 		event.preventDefault();
