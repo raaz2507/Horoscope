@@ -143,6 +143,7 @@ form input[type="submit"]:hover{
 	border: 2px solid red;
 	padding:2%;
 	border-radius: 10px;
+	text-transform:capitalize;
 }
 #DetailsDisplay{
 	display: grid;
@@ -253,6 +254,32 @@ footer{
 
 }
 /* rotate animattion end */
+@media screen and (max-width:728px){
+	nav ul{
+		flex-direction:column;
+	}
+	form fieldset{
+		display: flex;
+		justify-content:center;
+		align-items:center;
+		flex-direction:column;
+	}
+	#DetailsDisplay{
+		display: grid;
+		grid-template-columns:repeat(2, auto);
+		grid-template-rows:repeat(5, auto);
+		grid-template-areas: "nameTitle nameValue "
+													"dobTitle dobValue"
+													"namankTitle namankValue"
+													"mulyanTitle mulyankValue"
+													"bhagyankTitle bhagyankValue";
+		gap: 2px;
+	}
+	.flipContainer{
+		height:50vh;
+	}
+}
+
 </style>
 </head>
 
@@ -343,7 +370,7 @@ DetailsDisplay.addEventListener('click', ()=>{
 	function main(event) {
 		event.preventDefault();
 		const formData = new FormData(event.target);
-		let name = formData.get("name").toLowerCase();
+		let name = formData.get("name").trim().toLowerCase();
 		let dob = formData.get("dob");
 		//console.log(`${name}, ${dob}`);
 	
