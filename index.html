@@ -12,6 +12,7 @@
 	--color2: rgba(255, 247, 214, 0.842);
 	--color3: rgb(255, 183, 0);
 	--color4: rgba(255, 199, 95, 0.548);
+	--color5: rgb(255, 255, 255);
 	--font-family: arial;
 	--font-size: 18px;
 	--background-img: url("./img/astroBakcgroun.webp");
@@ -55,13 +56,22 @@ nav{
 	background-color:var(--color3);
 	width:var(--widthSize);
 	border-radius: 10px;
+	padding:1%;
 }
 nav ul{
-	/*display:flex;*/
-	flex-direction:column;
+	display:flex;
+	flex-direction:row;
+	justify-content: space-between;
+	align-items:center;
 }
-nav li{
+nav ul li{
+	font-size:larger;
 	list-style:none;
+	text-transform: capitalize;
+}
+nav a{
+	color: var(--color5);
+	text-decoration :none;
 }
 #container{
 	width:var(--widthSize);
@@ -133,7 +143,6 @@ form input[type="submit"]:hover{
 	border: 2px solid red;
 	padding:2%;
 	border-radius: 10px;
-
 }
 #DetailsDisplay{
 	display: grid;
@@ -200,9 +209,12 @@ footer{
 	margin-bottom:1em;
 	justify-content: center !important;
 	/*text-align:center;*/
-	color: var(--color1);
+	color: var(--color5);
 	border: 2px solid var(--color1);
 	border-radius: 15px;
+	font-weight:bolder;
+	font-size:larger;
+	text-shadow: 2px 2px 4px var(--color1);
 }
 .glassEffect{
 	background-color:rgba(250, 235, 215, 0.127);
@@ -250,7 +262,7 @@ footer{
 			<h3 class="webTitle">जानें अंक ज्योतिष से भविष्य</h3>
 		</header>
 		<nav class="glassEffect">
-			<ul class="flexMe">
+			<ul>
 				<li><a href="">about numverlogy</a></li>
 				<li><a href="">numerloby calculater</a></li>
 				<li><a href="">about me</a></li>
@@ -305,11 +317,22 @@ footer{
 	
 
 	myform.addEventListener("submit", (event) => {	main(event); });
-
+/*
 	DetailsDisplay.addEventListener('click', ()=>{
 		flipCard();
 		horsoScopePlaceShow();
 	});
+*/
+DetailsDisplay.addEventListener('click', ()=>{
+    if (flip_Card.style.transform === 'rotateX(180deg)') {
+        flip_Card.style.transform = 'rotateX(0deg)'; // Flip back to form
+        front.style.display = 'block';  // Show form again
+        horoScopePlaceHide();
+    } else {
+        flipCard(); // Flip to details
+        horsoScopePlaceShow();
+    }
+});
 
 	const flip_Card = document.querySelector(".flipCard");
 	const front =document.querySelector(".front");
